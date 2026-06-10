@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CashBack Aniversario 2026 — Consulta</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    header h1 { font-size: 1.2rem; font-weight: 600; }
+    header span { font-size: 0.85rem; opacity: 0.6; }
+
+    .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+
+    .search-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 28px;
+    }
+    .search-box label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .search-row {
+      display: flex;
+      gap: 10px;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .search-row input:focus { border-color: #4f46e5; }
+    .search-row button {
+      padding: 12px 24px;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-row button:hover { background: #4338ca; }
+
+    .hint { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
+
+    .result-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .result-header {
+      background: #f8fafc;
+      padding: 16px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .result-header .cedula { font-weight: 700; font-size: 1rem; }
+    .result-header .phone { color: #64748b; font-size: 0.9rem; }
+
+    .voucher-row {
+      padding: 16px 24px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .voucher-row:last-child { border-bottom: none; }
+
+    .voucher-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 640px) {
+      .voucher-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    .field-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+    .field-value {
+      font-size: 0.9rem;
+      color: #1e293b;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-success    { background: #dcfce7; color: #16a34a; }
+    .badge-expired    { background: #fee2e2; color: #dc2626; }
+    .badge-pending    { background: #fef9c3; color: #ca8a04; }
+    .badge-rejected   { background: #fce7f3; color: #be185d; }
+    .badge-awarded    { background: #e0e7ff; color: #4338ca; }
+    .badge-sent       { background: #f0f9ff; color: #0369a1; }
+    .badge-paid       { background: #dcfce7; color: #15803d; }
+    .badge-other      { background: #f1f5f9; color: #475569; }
+
+    .amount { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
+
+    .movements {
+      margin-top: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .movements-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .movement-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 5px 0;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.82rem;
+    }
+    .movement-item:last-child { border-bottom: none; }
+    .mov-date { color: #64748b; white-space: nowrap; min-width: 130px; }
+    .mov-kind { font-weight: 600; min-width: 80px; }
+    .mov-msg  { color: #475569; }
+
+    .no-result {
+      background: #fff;
+      border-radius: 12px;
+      padding: 48px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      color: #94a3b8;
+    }
+    .no-result strong { display: block; font-size: 1.1rem; color: #475569; margin-bottom: 6px; }
+
+    .loading {
+      text-align: center;
+      padding: 48px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .error-banner {
+      background: #fee2e2;
+      color: #dc2626;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .summary-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .summary-pill {
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .summary-pill strong { font-size: 1.1rem; display: block; }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>CashBack Aniversario 2026</h1>
+    <span>Consulta de vouchers — uso interno call center</span>
+  </div>
+</header>
+
+<div class="container">
+  <div id="error-area"></div>
+
+  <div class="search-box">
+    <label>Buscar por cédula o Track ID</label>
+    <div class="search-row">
+      <input type="text" id="query" placeholder="Ej: 1022396081 o 021677202606041100..." autocomplete="off" />
+      <button onclick="search()">Buscar</button>
+    </div>
+    <p class="hint">Presiona Enter o haz clic en Buscar</p>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<footer>Datos actualizados: <span id="data-date">cargando...</span></footer>
+
+<script>
+  const DATA_PATH = 'CashBack_2026_Mkt/';
+  let vouchers = [], movements = [], customers = [];
+  let dataLoaded = false;
+
+  function parseTxt(text) {
+    const lines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(';');
+    return lines.slice(1).map(line => {
+      const vals = line.split(';');
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = (vals[i] || '').trim());
+      return obj;
+    });
+  }
+
+  async function loadData() {
+    const area = document.getElementById('error-area');
+    try {
+      const [v, m, c] = await Promise.all([
+        fetch(DATA_PATH + 'Dispersion_voucher.txt').then(r => r.text()),
+        fetch(DATA_PATH + 'Dispersion_voucher_movement.txt').then(r => r.text()),
+        fetch(DATA_PATH + 'Dispersion_customer_directory.txt').then(r => r.text()),
+      ]);
+      vouchers   = parseTxt(v);
+      movements  = parseTxt(m);
+      customers  = parseTxt(c);
+      dataLoaded = true;
+
+      const lastMov = movements.map(m => m.created_at).filter(d => d && d !== '?').sort().reverse()[0];
+      document.getElementById('data-date').textContent = lastMov || 'desconocida';
+    } catch(e) {
+      area.innerHTML = `<div class="error-banner">⚠️ No se pudieron cargar los archivos de datos. Verifica que estén en <code>${DATA_PATH}</code>.<br><small>${e.message}</small></div>`;
+    }
+  }
+
+  function badgeClass(status) {
+    const map = { success:'success', expired:'expired', pending_registration:'pending',
+      rejected_no_daviplata:'rejected', rejected:'rejected', awarded:'awarded',
+      sent:'sent', paid:'paid' };
+    return 'badge badge-' + (map[status] || 'other');
+  }
+
+  function formatAmount(cents) {
+    const n = parseInt(cents, 10);
+    if (isNaN(n)) return cents;
+    return '$' + (n / 100).toLocaleString('es-CO', { minimumFractionDigits: 0 });
+  }
+
+  function formatDate(d) {
+    if (!d || d === '?') return '—';
+    return d.split('.')[0];
+  }
+
+  function renderMovements(voucherId) {
+    const movs = movements.filter(m => m.voucher_id === voucherId);
+    if (!movs.length) return '';
+    const rows = movs
+      .sort((a, b) => a.created_at > b.created_at ? 1 : -1)
+      .map(m => `
+        <div class="movement-item">
+          <span class="mov-date">${formatDate(m.created_at)}</span>
+          <span class="mov-kind"><span class="${badgeClass(m.kind)}">${m.kind}</span></span>
+          <span class="mov-msg">${m.message && m.message !== '?' ? m.message : ''}</span>
+        </div>`).join('');
+    return `<div class="movements"><div class="movements-title">Historial de movimientos</div>${rows}</div>`;
+  }
+
+  function renderVoucher(v) {
+    return `
+      <div class="voucher-row">
+        <div class="voucher-top">
+          <div>
+            <div class="field-label">Track ID</div>
+            <div class="field-value">${v.track_id || '—'}</div>
+          </div>
+          <div>
+            <div class="field-label">Voucher Code</div>
+            <div class="field-value">${v.voucher_code || '—'}</div>
+          </div>
+          <div>
+            <div class="field-label">Expira</div>
+            <div class="field-value">${formatDate(v.expires_at)}</div>
+          </div>
+          <div>
+            <div class="field-label">Monto</div>
+            <div class="amount">${formatAmount(v.amount_cents)}</div>
+            <span class="${badgeClass(v.status)}">${v.status || '?'}</span>
+          </div>
+        </div>
+        ${renderMovements(v.id)}
+      </div>`;
+  }
+
+  function search() {
+    const query = document.getElementById('query').value.trim();
+    const resultsEl = document.getElementById('results');
+
+    if (!query) { resultsEl.innerHTML = ''; return; }
+
+    if (!dataLoaded) {
+      resultsEl.innerHTML = '<div class="loading">Cargando datos...</div>';
+      return;
+    }
+
+    // Buscar por cédula (national_id) o por track_id
+    const byCedula  = vouchers.filter(v => v.national_id === query);
+    const byTrackId = vouchers.filter(v => v.track_id === query);
+
+    const matched = byCedula.length ? byCedula : byTrackId;
+
+    if (!matched.length) {
+      resultsEl.innerHTML = `
+        <div class="no-result">
+          <strong>Sin resultados</strong>
+          No se encontró ningún voucher para <em>"${query}"</em>
+        </div>`;
+      return;
+    }
+
+    // Agrupar por national_id para mostrar resumen
+    const byNid = {};
+    matched.forEach(v => {
+      if (!byNid[v.national_id]) byNid[v.national_id] = [];
+      byNid[v.national_id].push(v);
+    });
+
+    let html = '';
+    for (const [nid, vList] of Object.entries(byNid)) {
+      const customer = customers.find(c => c.cedula === nid);
+      const phone = customer?.phone || vList[0]?.phone || '—';
+      const statuses = vList.map(v => v.status);
+      const success = statuses.filter(s => s === 'success').length;
+      const expired = statuses.filter(s => s === 'expired').length;
+
+      html += `
+        <div class="result-card">
+          <div class="result-header">
+            <div>
+              <div class="field-label">Cédula</div>
+              <div class="cedula">${nid}</div>
+            </div>
+            <div>
+              <div class="field-label">Teléfono</div>
+              <div class="phone">${phone}</div>
+            </div>
+            <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+              <span class="badge badge-success">${success} exitoso${success !== 1 ? 's' : ''}</span>
+              ${expired ? `<span class="badge badge-expired">${expired} expirado${expired !== 1 ? 's' : ''}</span>` : ''}
+            </div>
+          </div>
+          ${vList.map(renderVoucher).join('')}
+        </div>`;
+    }
+
+    resultsEl.innerHTML = html;
+  }
+
+  document.getElementById('query').addEventListener('keydown', e => {
+    if (e.key === 'Enter') search();
+  });
+
+  loadData();
+</script>
+</body>
+</html>
