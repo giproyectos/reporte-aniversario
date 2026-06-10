@@ -17,397 +17,614 @@
     header {
       background: #1a1a2e;
       color: #fff;
-      padding: 20px 32px;
+      padding: 18px 32px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
     }
-    header h1 { font-size: 1.2rem; font-weight: 600; }
-    header span { font-size: 0.85rem; opacity: 0.6; }
+    header h1 { font-size: 1.1rem; font-weight: 600; }
+    header span { font-size: 0.8rem; opacity: 0.55; }
 
-    .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .container { max-width: 1200px; margin: 28px auto; padding: 0 20px; }
 
-    .search-box {
+    /* Filters */
+    .filters {
       background: #fff;
       border-radius: 12px;
-      padding: 28px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom: 28px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      margin-bottom: 20px;
     }
-    .search-box label {
+    .filters-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      margin-bottom: 14px;
+    }
+    .filters-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 12px;
+      align-items: end;
+    }
+    @media (max-width: 900px) {
+      .filters-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .filters-grid { grid-template-columns: 1fr; }
+    }
+
+    .filter-group label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      color: #555;
-      margin-bottom: 10px;
+      color: #64748b;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      margin-bottom: 5px;
     }
-    .search-row {
-      display: flex;
-      gap: 10px;
-    }
-    .search-row input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: border-color 0.2s;
+    .filter-group input,
+    .filter-group select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 7px;
+      font-size: 0.88rem;
       outline: none;
+      background: #fff;
+      transition: border-color 0.15s;
     }
-    .search-row input:focus { border-color: #4f46e5; }
-    .search-row button {
-      padding: 12px 24px;
+    .filter-group input:focus,
+    .filter-group select:focus { border-color: #4f46e5; }
+
+    .filter-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .btn-primary {
+      padding: 9px 20px;
       background: #4f46e5;
       color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 7px;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.15s;
     }
-    .search-row button:hover { background: #4338ca; }
+    .btn-primary:hover { background: #4338ca; }
+    .btn-ghost {
+      padding: 9px 16px;
+      background: transparent;
+      color: #64748b;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 7px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .btn-ghost:hover { border-color: #94a3b8; }
 
-    .hint { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
-
-    .result-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-    .result-header {
-      background: #f8fafc;
-      padding: 16px 24px;
-      border-bottom: 1px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .result-header .cedula { font-weight: 700; font-size: 1rem; }
-    .result-header .phone { color: #64748b; font-size: 0.9rem; }
-
-    .voucher-row {
-      padding: 16px 24px;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .voucher-row:last-child { border-bottom: none; }
-
-    .voucher-top {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr auto;
-      gap: 16px;
-      align-items: start;
-      margin-bottom: 10px;
-    }
-    @media (max-width: 640px) {
-      .voucher-top { grid-template-columns: 1fr 1fr; }
-    }
-
-    .field-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 3px;
-    }
-    .field-value {
-      font-size: 0.9rem;
-      color: #1e293b;
-      font-weight: 500;
-      word-break: break-all;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .badge-success    { background: #dcfce7; color: #16a34a; }
-    .badge-expired    { background: #fee2e2; color: #dc2626; }
-    .badge-pending    { background: #fef9c3; color: #ca8a04; }
-    .badge-rejected   { background: #fce7f3; color: #be185d; }
-    .badge-awarded    { background: #e0e7ff; color: #4338ca; }
-    .badge-sent       { background: #f0f9ff; color: #0369a1; }
-    .badge-paid       { background: #dcfce7; color: #15803d; }
-    .badge-other      { background: #f1f5f9; color: #475569; }
-
-    .amount { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
-
-    .movements {
-      margin-top: 10px;
-      background: #f8fafc;
-      border-radius: 8px;
-      padding: 10px 14px;
-    }
-    .movements-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-    .movement-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 5px 0;
-      border-bottom: 1px solid #e2e8f0;
-      font-size: 0.82rem;
-    }
-    .movement-item:last-child { border-bottom: none; }
-    .mov-date { color: #64748b; white-space: nowrap; min-width: 130px; }
-    .mov-kind { font-weight: 600; min-width: 80px; }
-    .mov-msg  { color: #475569; }
-
-    .no-result {
-      background: #fff;
-      border-radius: 12px;
-      padding: 48px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      color: #94a3b8;
-    }
-    .no-result strong { display: block; font-size: 1.1rem; color: #475569; margin-bottom: 6px; }
-
-    .loading {
-      text-align: center;
-      padding: 48px;
-      color: #94a3b8;
-      font-size: 0.95rem;
-    }
-
-    .error-banner {
-      background: #fee2e2;
-      color: #dc2626;
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      font-size: 0.9rem;
-    }
-
+    /* Summary pills */
     .summary-bar {
       display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 10px;
       flex-wrap: wrap;
+      margin-bottom: 16px;
     }
-    .summary-pill {
+    .pill {
       background: #fff;
       border-radius: 8px;
       padding: 10px 16px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      color: #475569;
     }
-    .summary-pill strong { font-size: 1.1rem; display: block; }
+    .pill strong { font-size: 1rem; display: block; color: #1e293b; }
 
-    footer {
+    /* Table */
+    .table-wrap {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .table-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .table-count { font-size: 0.83rem; color: #64748b; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    thead th {
+      background: #f8fafc;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    thead th:hover { color: #4f46e5; }
+    thead th.sorted { color: #4f46e5; }
+    thead th .sort-icon { margin-left: 4px; opacity: 0.5; }
+    thead th.sorted .sort-icon { opacity: 1; }
+
+    tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+    td { padding: 10px 14px; color: #334155; vertical-align: top; }
+    td.mono { font-family: monospace; font-size: 0.78rem; color: #475569; }
+
+    /* Expandable movement row */
+    .expand-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4f46e5;
+      font-size: 0.78rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .expand-btn:hover { background: #e0e7ff; }
+    .movement-detail {
+      background: #f8fafc;
+      padding: 10px 14px 10px 28px;
+    }
+    .movement-detail table { font-size: 0.78rem; }
+    .movement-detail thead th {
+      background: #f1f5f9;
+      font-size: 0.68rem;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 99px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-success              { background: #dcfce7; color: #16a34a; }
+    .badge-expired              { background: #fee2e2; color: #dc2626; }
+    .badge-pending_registration { background: #fef9c3; color: #ca8a04; }
+    .badge-rejected_no_daviplata{ background: #fce7f3; color: #be185d; }
+    .badge-rejected             { background: #fce7f3; color: #be185d; }
+    .badge-awarded              { background: #e0e7ff; color: #4338ca; }
+    .badge-sent                 { background: #f0f9ff; color: #0369a1; }
+    .badge-paid                 { background: #dcfce7; color: #15803d; }
+    .badge-other                { background: #f1f5f9; color: #475569; }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px;
+      border-top: 1px solid #f1f5f9;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      padding: 6px 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: #475569;
+      transition: all 0.1s;
+    }
+    .page-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+    .page-btn.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
+
+    .empty {
       text-align: center;
-      padding: 32px;
-      font-size: 0.8rem;
+      padding: 48px 20px;
       color: #94a3b8;
     }
+    .empty strong { display: block; font-size: 1rem; color: #475569; margin-bottom: 4px; }
+
+    .loading { text-align: center; padding: 48px; color: #94a3b8; }
+    .error-banner {
+      background: #fee2e2; color: #dc2626;
+      border-radius: 8px; padding: 12px 16px;
+      margin-bottom: 16px; font-size: 0.88rem;
+    }
+
+    footer { text-align: center; padding: 28px; font-size: 0.78rem; color: #94a3b8; }
   </style>
 </head>
 <body>
 
 <header>
   <div>
-    <h1>CashBack Aniversario 2026</h1>
-    <span>Consulta de vouchers — uso interno call center</span>
+    <h1>CashBack Aniversario 2026 — Consulta</h1>
+    <span>Uso interno · Call Center</span>
   </div>
+  <span id="data-date" style="font-size:0.78rem;opacity:0.6"></span>
 </header>
 
 <div class="container">
   <div id="error-area"></div>
 
-  <div class="search-box">
-    <label>Buscar por cédula o Track ID</label>
-    <div class="search-row">
-      <input type="text" id="query" placeholder="Ej: 1022396081 o 021677202606041100..." autocomplete="off" />
-      <button onclick="search()">Buscar</button>
+  <div class="filters">
+    <div class="filters-title">Filtros</div>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label>Cédula o Track ID</label>
+        <input type="text" id="f-query" placeholder="Buscar por cédula o track ID..." />
+      </div>
+      <div class="filter-group">
+        <label>Estado del voucher</label>
+        <select id="f-status">
+          <option value="">Todos</option>
+          <option value="success">success</option>
+          <option value="expired">expired</option>
+          <option value="pending_registration">pending</option>
+          <option value="rejected_no_daviplata">rejected</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Tipo de movimiento</label>
+        <select id="f-kind">
+          <option value="">Todos</option>
+          <option value="awarded">awarded</option>
+          <option value="sent">sent</option>
+          <option value="paid">paid</option>
+          <option value="expired">expired</option>
+          <option value="rejected">rejected</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Expiración desde</label>
+        <input type="date" id="f-exp-from" />
+      </div>
+      <div class="filter-group">
+        <label>Expiración hasta</label>
+        <input type="date" id="f-exp-to" />
+      </div>
     </div>
-    <p class="hint">Presiona Enter o haz clic en Buscar</p>
+    <div class="filter-group" style="margin-top:12px; max-width:320px;">
+      <label>Fecha de movimiento desde / hasta</label>
+      <div style="display:flex;gap:8px;">
+        <input type="date" id="f-mov-from" />
+        <input type="date" id="f-mov-to" />
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-primary" onclick="applyFilters()">Aplicar filtros</button>
+      <button class="btn-ghost" onclick="clearFilters()">Limpiar</button>
+    </div>
   </div>
 
-  <div id="results"></div>
+  <div id="summary-bar" class="summary-bar"></div>
+
+  <div class="table-wrap">
+    <div class="table-header">
+      <span class="table-count" id="table-count">Cargando datos...</span>
+    </div>
+    <div id="table-area"><div class="loading">Cargando datos...</div></div>
+    <div id="pagination" class="pagination"></div>
+  </div>
 </div>
 
-<footer>Datos actualizados: <span id="data-date">cargando...</span></footer>
+<footer>Última actualización de datos: <span id="data-date2">—</span></footer>
 
 <script>
-  const DATA_PATH = 'CashBack_2026_Mkt/';
-  let vouchers = [], movements = [], customers = [];
-  let dataLoaded = false;
+const DATA_PATH = 'CashBack_2026_Mkt/';
+const PAGE_SIZE = 25;
 
-  function parseTxt(text) {
-    const lines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
-    if (lines.length < 2) return [];
-    const headers = lines[0].split(';');
-    return lines.slice(1).map(line => {
-      const vals = line.split(';');
-      const obj = {};
-      headers.forEach((h, i) => obj[h.trim()] = (vals[i] || '').trim());
-      return obj;
-    });
+let vouchers = [], movements = [], customers = [];
+let filtered = [];
+let currentPage = 1;
+let sortCol = 'expires_at', sortDir = 1;
+let expandedRows = new Set();
+
+// ── Parse ──────────────────────────────────────────────
+function parseTxt(text) {
+  const lines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(';');
+  return lines.slice(1).map(line => {
+    const vals = line.split(';');
+    const obj = {};
+    headers.forEach((h, i) => obj[h.trim()] = (vals[i] || '').trim());
+    return obj;
+  });
+}
+
+function parseDate(str) {
+  if (!str || str === '?') return null;
+  // formats: "9/06/2026 12:05:00.438000" or "2026-06-10"
+  const parts = str.split(' ')[0];
+  if (parts.includes('/')) {
+    const [d, m, y] = parts.split('/');
+    return new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
   }
+  return new Date(parts);
+}
 
-  async function loadData() {
-    const area = document.getElementById('error-area');
-    try {
-      const [v, m, c] = await Promise.all([
-        fetch(DATA_PATH + 'Dispersion_voucher.txt').then(r => r.text()),
-        fetch(DATA_PATH + 'Dispersion_voucher_movement.txt').then(r => r.text()),
-        fetch(DATA_PATH + 'Dispersion_customer_directory.txt').then(r => r.text()),
-      ]);
-      vouchers   = parseTxt(v);
-      movements  = parseTxt(m);
-      customers  = parseTxt(c);
-      dataLoaded = true;
+async function loadData() {
+  const area = document.getElementById('error-area');
+  try {
+    const [v, m, c] = await Promise.all([
+      fetch(DATA_PATH + 'Dispersion_voucher.txt').then(r => r.text()),
+      fetch(DATA_PATH + 'Dispersion_voucher_movement.txt').then(r => r.text()),
+      fetch(DATA_PATH + 'Dispersion_customer_directory.txt').then(r => r.text()),
+    ]);
+    vouchers  = parseTxt(v);
+    movements = parseTxt(m);
+    customers = parseTxt(c);
 
-      const lastMov = movements.map(m => m.created_at).filter(d => d && d !== '?').sort().reverse()[0];
-      document.getElementById('data-date').textContent = lastMov || 'desconocida';
-    } catch(e) {
-      area.innerHTML = `<div class="error-banner">⚠️ No se pudieron cargar los archivos de datos. Verifica que estén en <code>${DATA_PATH}</code>.<br><small>${e.message}</small></div>`;
-    }
+    const lastDate = movements.map(m => m.created_at).filter(d => d && d !== '?').sort().reverse()[0];
+    const fmt = lastDate ? lastDate.split(' ')[0] : '—';
+    document.getElementById('data-date').textContent = 'Datos al: ' + fmt;
+    document.getElementById('data-date2').textContent = fmt;
+
+    applyFilters();
+  } catch(e) {
+    area.innerHTML = `<div class="error-banner">⚠️ No se pudieron cargar los archivos de datos. Verifica que estén en <code>${DATA_PATH}</code>.<br><small>${e.message}</small></div>`;
+    document.getElementById('table-count').textContent = 'Error al cargar datos';
+    document.getElementById('table-area').innerHTML = '';
   }
+}
 
-  function badgeClass(status) {
-    const map = { success:'success', expired:'expired', pending_registration:'pending',
-      rejected_no_daviplata:'rejected', rejected:'rejected', awarded:'awarded',
-      sent:'sent', paid:'paid' };
-    return 'badge badge-' + (map[status] || 'other');
-  }
+// ── Filters ────────────────────────────────────────────
+function applyFilters() {
+  const query    = document.getElementById('f-query').value.trim().toLowerCase();
+  const status   = document.getElementById('f-status').value;
+  const kind     = document.getElementById('f-kind').value;
+  const expFrom  = document.getElementById('f-exp-from').value;
+  const expTo    = document.getElementById('f-exp-to').value;
+  const movFrom  = document.getElementById('f-mov-from').value;
+  const movTo    = document.getElementById('f-mov-to').value;
 
-  function formatAmount(cents) {
-    const n = parseInt(cents, 10);
-    if (isNaN(n)) return cents;
-    return '$' + (n / 100).toLocaleString('es-CO', { minimumFractionDigits: 0 });
-  }
+  filtered = vouchers.filter(v => {
+    if (query && !v.national_id.includes(query) && !v.track_id.toLowerCase().includes(query)) return false;
+    if (status && v.status !== status) return false;
 
-  function formatDate(d) {
-    if (!d || d === '?') return '—';
-    return d.split('.')[0];
-  }
-
-  function renderMovements(voucherId) {
-    const movs = movements.filter(m => m.voucher_id === voucherId);
-    if (!movs.length) return '';
-    const rows = movs
-      .sort((a, b) => a.created_at > b.created_at ? 1 : -1)
-      .map(m => `
-        <div class="movement-item">
-          <span class="mov-date">${formatDate(m.created_at)}</span>
-          <span class="mov-kind"><span class="${badgeClass(m.kind)}">${m.kind}</span></span>
-          <span class="mov-msg">${m.message && m.message !== '?' ? m.message : ''}</span>
-        </div>`).join('');
-    return `<div class="movements"><div class="movements-title">Historial de movimientos</div>${rows}</div>`;
-  }
-
-  function renderVoucher(v) {
-    return `
-      <div class="voucher-row">
-        <div class="voucher-top">
-          <div>
-            <div class="field-label">Track ID</div>
-            <div class="field-value">${v.track_id || '—'}</div>
-          </div>
-          <div>
-            <div class="field-label">Voucher Code</div>
-            <div class="field-value">${v.voucher_code || '—'}</div>
-          </div>
-          <div>
-            <div class="field-label">Expira</div>
-            <div class="field-value">${formatDate(v.expires_at)}</div>
-          </div>
-          <div>
-            <div class="field-label">Monto</div>
-            <div class="amount">${formatAmount(v.amount_cents)}</div>
-            <span class="${badgeClass(v.status)}">${v.status || '?'}</span>
-          </div>
-        </div>
-        ${renderMovements(v.id)}
-      </div>`;
-  }
-
-  function search() {
-    const query = document.getElementById('query').value.trim();
-    const resultsEl = document.getElementById('results');
-
-    if (!query) { resultsEl.innerHTML = ''; return; }
-
-    if (!dataLoaded) {
-      resultsEl.innerHTML = '<div class="loading">Cargando datos...</div>';
-      return;
+    if (expFrom || expTo) {
+      const d = parseDate(v.expires_at);
+      if (expFrom && (!d || d < new Date(expFrom))) return false;
+      if (expTo   && (!d || d > new Date(expTo + 'T23:59:59'))) return false;
     }
 
-    // Buscar por cédula (national_id) o por track_id
-    const byCedula  = vouchers.filter(v => v.national_id === query);
-    const byTrackId = vouchers.filter(v => v.track_id === query);
-
-    const matched = byCedula.length ? byCedula : byTrackId;
-
-    if (!matched.length) {
-      resultsEl.innerHTML = `
-        <div class="no-result">
-          <strong>Sin resultados</strong>
-          No se encontró ningún voucher para <em>"${query}"</em>
-        </div>`;
-      return;
+    if (kind || movFrom || movTo) {
+      const movs = movements.filter(m => m.voucher_id === v.id);
+      const match = movs.some(m => {
+        if (kind && m.kind !== kind) return false;
+        if (movFrom || movTo) {
+          const md = parseDate(m.created_at);
+          if (movFrom && (!md || md < new Date(movFrom))) return false;
+          if (movTo   && (!md || md > new Date(movTo + 'T23:59:59'))) return false;
+        }
+        return true;
+      });
+      if (!match) return false;
     }
 
-    // Agrupar por national_id para mostrar resumen
-    const byNid = {};
-    matched.forEach(v => {
-      if (!byNid[v.national_id]) byNid[v.national_id] = [];
-      byNid[v.national_id].push(v);
-    });
-
-    let html = '';
-    for (const [nid, vList] of Object.entries(byNid)) {
-      const customer = customers.find(c => c.cedula === nid);
-      const phone = customer?.phone || vList[0]?.phone || '—';
-      const statuses = vList.map(v => v.status);
-      const success = statuses.filter(s => s === 'success').length;
-      const expired = statuses.filter(s => s === 'expired').length;
-
-      html += `
-        <div class="result-card">
-          <div class="result-header">
-            <div>
-              <div class="field-label">Cédula</div>
-              <div class="cedula">${nid}</div>
-            </div>
-            <div>
-              <div class="field-label">Teléfono</div>
-              <div class="phone">${phone}</div>
-            </div>
-            <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-              <span class="badge badge-success">${success} exitoso${success !== 1 ? 's' : ''}</span>
-              ${expired ? `<span class="badge badge-expired">${expired} expirado${expired !== 1 ? 's' : ''}</span>` : ''}
-            </div>
-          </div>
-          ${vList.map(renderVoucher).join('')}
-        </div>`;
-    }
-
-    resultsEl.innerHTML = html;
-  }
-
-  document.getElementById('query').addEventListener('keydown', e => {
-    if (e.key === 'Enter') search();
+    return true;
   });
 
-  loadData();
+  currentPage = 1;
+  expandedRows.clear();
+  sortAndRender();
+}
+
+function clearFilters() {
+  ['f-query','f-status','f-kind','f-exp-from','f-exp-to','f-mov-from','f-mov-to']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  applyFilters();
+}
+
+// ── Sort ───────────────────────────────────────────────
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  sortAndRender();
+}
+
+function sortAndRender() {
+  filtered.sort((a, b) => {
+    let va = a[sortCol] || '', vb = b[sortCol] || '';
+    if (sortCol === 'expires_at') {
+      va = parseDate(va) || new Date(0);
+      vb = parseDate(vb) || new Date(0);
+    }
+    if (va < vb) return -sortDir;
+    if (va > vb) return  sortDir;
+    return 0;
+  });
+  renderSummary();
+  renderTable();
+  renderPagination();
+}
+
+// ── Summary ────────────────────────────────────────────
+function renderSummary() {
+  const total   = filtered.length;
+  const success = filtered.filter(v => v.status === 'success').length;
+  const expired = filtered.filter(v => v.status === 'expired').length;
+  const pending = filtered.filter(v => v.status === 'pending_registration').length;
+  const rejected= filtered.filter(v => v.status.startsWith('rejected')).length;
+  const monto   = filtered.reduce((s, v) => s + (parseInt(v.amount_cents)||0), 0);
+
+  document.getElementById('summary-bar').innerHTML = `
+    <div class="pill"><strong>${total}</strong> vouchers</div>
+    <div class="pill"><strong>${success}</strong> exitosos</div>
+    <div class="pill"><strong>${expired}</strong> expirados</div>
+    <div class="pill"><strong>${pending}</strong> pendientes</div>
+    ${rejected ? `<div class="pill"><strong>${rejected}</strong> rechazados</div>` : ''}
+    <div class="pill"><strong>${formatMoney(monto)}</strong> monto total</div>
+  `;
+}
+
+// ── Table ──────────────────────────────────────────────
+const COLS = [
+  { key: 'national_id',  label: 'Cédula' },
+  { key: 'track_id',     label: 'Track ID' },
+  { key: 'voucher_code', label: 'Voucher Code' },
+  { key: 'status',       label: 'Estado' },
+  { key: 'amount_cents', label: 'Monto' },
+  { key: 'expires_at',   label: 'Expiración' },
+  { key: 'phone',        label: 'Teléfono' },
+  { key: '_movs',        label: 'Movimientos' },
+];
+
+function renderTable() {
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page  = filtered.slice(start, start + PAGE_SIZE);
+  const count = filtered.length;
+
+  document.getElementById('table-count').textContent =
+    count === 0 ? 'Sin resultados' : `${count} registro${count !== 1 ? 's' : ''} · página ${currentPage} de ${Math.ceil(count/PAGE_SIZE)}`;
+
+  if (count === 0) {
+    document.getElementById('table-area').innerHTML =
+      '<div class="empty"><strong>Sin resultados</strong>Ajusta los filtros para ver registros.</div>';
+    return;
+  }
+
+  const sortIcon = (key) => {
+    if (sortCol !== key) return '<span class="sort-icon">↕</span>';
+    return `<span class="sort-icon">${sortDir === 1 ? '↑' : '↓'}</span>`;
+  };
+
+  const headers = COLS.map(c =>
+    `<th class="${sortCol===c.key?'sorted':''}" onclick="${c.key!=='_movs'?`setSort('${c.key}')`:''}">
+      ${c.label}${c.key!=='_movs'?sortIcon(c.key):''}
+    </th>`
+  ).join('');
+
+  const rows = page.map((v, idx) => {
+    const absIdx = start + idx;
+    const movCount = movements.filter(m => m.voucher_id === v.id).length;
+    const expanded = expandedRows.has(v.id);
+    const expDate = formatDate(v.expires_at);
+    const isExpiringSoon = (() => {
+      const d = parseDate(v.expires_at);
+      if (!d) return false;
+      const diff = (d - new Date()) / 86400000;
+      return diff >= 0 && diff <= 2;
+    })();
+
+    const mainRow = `<tr>
+      <td>${v.national_id}</td>
+      <td class="mono">${v.track_id}</td>
+      <td class="mono">${v.voucher_code}</td>
+      <td><span class="badge badge-${v.status||'other'}">${v.status||'?'}</span></td>
+      <td>${formatMoney(parseInt(v.amount_cents)||0)}</td>
+      <td style="${isExpiringSoon?'color:#ca8a04;font-weight:600':''}">${expDate}</td>
+      <td>${v.phone && v.phone !== '?' ? v.phone : '—'}</td>
+      <td>${movCount > 0
+        ? `<button class="expand-btn" onclick="toggleMovs('${v.id}', this)">${expanded?'▾':'▸'} ${movCount} mov.</button>`
+        : '<span style="color:#cbd5e1">—</span>'
+      }</td>
+    </tr>`;
+
+    const movRow = expanded ? `<tr><td colspan="8" style="padding:0">
+      <div class="movement-detail">${renderMovements(v.id)}</div>
+    </td></tr>` : '';
+
+    return mainRow + movRow;
+  }).join('');
+
+  document.getElementById('table-area').innerHTML =
+    `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function renderMovements(voucherId) {
+  const movs = movements.filter(m => m.voucher_id === voucherId)
+    .sort((a,b) => (a.created_at > b.created_at ? 1 : -1));
+  if (!movs.length) return '';
+  const rows = movs.map(m => `<tr>
+    <td>${formatDate(m.created_at)}</td>
+    <td><span class="badge badge-${m.kind||'other'}">${m.kind}</span></td>
+    <td>${m.amount_cents && m.amount_cents !== '?' ? formatMoney(parseInt(m.amount_cents)) : '—'}</td>
+    <td>${m.message && m.message !== '?' ? m.message : '—'}</td>
+  </tr>`).join('');
+  return `<table>
+    <thead><tr><th>Fecha</th><th>Tipo</th><th>Monto</th><th>Mensaje</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function toggleMovs(voucherId, btn) {
+  if (expandedRows.has(voucherId)) {
+    expandedRows.delete(voucherId);
+  } else {
+    expandedRows.add(voucherId);
+  }
+  renderTable();
+  renderPagination();
+}
+
+// ── Pagination ─────────────────────────────────────────
+function renderPagination() {
+  const total = Math.ceil(filtered.length / PAGE_SIZE);
+  if (total <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Anterior</button>`;
+
+  const pages = [];
+  for (let p = 1; p <= total; p++) {
+    if (p === 1 || p === total || Math.abs(p - currentPage) <= 2) pages.push(p);
+    else if (pages[pages.length-1] !== '...') pages.push('...');
+  }
+  pages.forEach(p => {
+    if (p === '...') html += `<span style="padding:6px 4px;color:#94a3b8">…</span>`;
+    else html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}>Siguiente ›</button>`;
+  document.getElementById('pagination').innerHTML = html;
+}
+
+function goPage(p) {
+  const total = Math.ceil(filtered.length / PAGE_SIZE);
+  if (p < 1 || p > total) return;
+  currentPage = p;
+  expandedRows.clear();
+  renderTable();
+  renderPagination();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Helpers ────────────────────────────────────────────
+function formatMoney(cents) {
+  if (!cents && cents !== 0) return '—';
+  return '$' + (cents / 100).toLocaleString('es-CO', { minimumFractionDigits: 0 });
+}
+function formatDate(str) {
+  if (!str || str === '?') return '—';
+  return str.split('.')[0];
+}
+
+// ── Enter key on search ────────────────────────────────
+document.getElementById('f-query').addEventListener('keydown', e => {
+  if (e.key === 'Enter') applyFilters();
+});
+
+loadData();
 </script>
 </body>
 </html>
